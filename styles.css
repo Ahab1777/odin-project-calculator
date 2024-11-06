@@ -1,0 +1,25 @@
+. {
+ box-sizing: border-box;
+}
+
+.calculator-container{
+    width: 250px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    width: 300px;
+}
+
+.base-btn{
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+}
+
+.equal-btn{
+    height: 50px;
+    width: 100%;
+    
+}
