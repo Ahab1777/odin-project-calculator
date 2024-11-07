@@ -29,5 +29,6 @@ function operate(operandX, operandY, operator) {
     }
 }
 
-    
+const display = document.querySelector('.display')    
 
+    

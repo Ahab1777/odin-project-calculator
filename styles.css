@@ -2,13 +2,31 @@
  box-sizing: border-box;
 }
 
-.calculator-container{
-    width: 250px;
+.calculator-container {
+    height: 400px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
 
+.display {
+    width: 300px;
+    height: 60px;
+    margin: 8px 16px;
+    border: 1px solid black;
+    text-align:end;
+    font-size:28px;
+}
+
+.btn-container{
+    width: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 500px;
+    height: 300px;
     width: 300px;
 }
 
