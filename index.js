@@ -31,4 +31,11 @@ function operate(operandX, operandY, operator) {
 
 const display = document.querySelector('.display')    
 
-    
+const numericDigits = document.querySelectorAll('.base-btn')
+
+numericDigits.forEach(button => {
+    const buttonContent = button.textContent
+    button.addEventListener('click', function() {
+        display.textContent = buttonContent
+    })
+});

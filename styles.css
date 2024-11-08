@@ -26,18 +26,53 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px;
+    height: 200px;
     width: 300px;
 }
 
 .base-btn{
     width: 50px;
+    /* height: 50px; */
+    margin: 2px;
+    flex: 1 1 0;
+
+}
+
+.result-column{
+    display: flex;
+    flex-direction: column;
+    height: 100%
+}
+
+.operator-btn{
+    width: 50px;
     height: 50px;
+    margin: 2px;
+    flex: 1 1 0;
+}
+
+.clear-btn{
+    flex: 1 1 0;
+    width: 50px;
     margin: 2px;
 }
 
 .equal-btn{
-    height: 50px;
-    width: 100%;
-    
+    flex: 3 1 0;
+    width: 50px;
+    margin: 2px;
+    background-color: green;
+    color: white;
+}
+
+.btn-column{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.btn-column, .result-column{
+    justify-content: center;
+    align-items: center;
+    width: 100%;   
 }
