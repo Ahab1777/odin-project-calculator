@@ -15,26 +15,58 @@ function divide(x, y) {
     return x / y
 }
 
-let firstOperand = '', currentOperator = '', secondOperand = ''
+//variables for each digits and buttons
+let firstOperand = '', currentOperator = '', secondOperand = '', result = ''
+const numericDigits = document.querySelectorAll('.base-btn')
+const display = document.querySelector('.display')
+//operator variable for function call
+let functionalOperator = '';    
+
+//function to be called when a new digit is clicked
 const refreshDisplay = () => {
-    display.textContent = `${firstOperand} ${currentOperator} ${secondOperand}`
+    if( result === '') {
+        display.textContent = `${firstOperand} ${currentOperator} ${secondOperand}`
+    } else {
+        display.textContent = result
+    }
 }
 
+//clear/clr button functionality
+const clrButton = document.querySelector('.clear-btn')
+clrButton.addEventListener('click', function() {
+    firstOperand = ''
+    currentOperator = ''
+    secondOperand = ''
+    functionalOperator = ''
+    result = ''
+    refreshDisplay()
+})
+
+//equal sign functionality
 function operate(operandX, operandY, operator) {
-    if(operator === add){
+    if(operator === 'add'){
         return add(operandX, operandY)
-    } else if(operator === subtract){
+    } else if(operator === 'subtract'){
         return subtract(operandX, operandY)
-    } else if(operator === multiply){
+    } else if(operator === 'multiply'){
         return multiply(operandX, operandY)
-    } else if(operator === divide){
+    } else if(operator === 'divide'){
         return divide(operandX, operandY)
     }
 }
 
-const display = document.querySelector('.display')    
+const equalButton = document.querySelector('.equal-btn')
+equalButton.addEventListener('click', function() {
+    console.log(firstOperand, secondOperand, functionalOperator)
+    if(secondOperand === ''){
+        return
+    } else {
+        result = operate(firstOperand, secondOperand, functionalOperator)
+        refreshDisplay()
+        return
+    }
+})
 
-const numericDigits = document.querySelectorAll('.base-btn')
 
 //feeds digits into variable and display
 numericDigits.forEach(button => {
@@ -52,11 +84,19 @@ numericDigits.forEach(button => {
 });
 
 //add function to operator digits
+
+//allocate node of  operator buttons to an variable
 const operatorDigits = document.querySelectorAll('.operator-btn')
+//iterate over node of buttons
 operatorDigits.forEach(button => {
     const operatorButtonContent = button.textContent
+    //event listener to make click event feed function(operation) into display
     button.addEventListener('click', function() {
-        currentOperator.textContent = operatorButtonContent
+        //set operator for display
+        currentOperator = operatorButtonContent
+        //set operator for functional variable
+        functionalOperator = button.dataset.operation
+        console.log(functionalOperator)
         refreshDisplay()
     })
 })
