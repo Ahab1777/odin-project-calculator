@@ -84,7 +84,6 @@ numericDigits.forEach(button => {
 });
 
 //add function to operator digits
-
 //allocate node of  operator buttons to an variable
 const operatorDigits = document.querySelectorAll('.operator-btn')
 //iterate over node of buttons
@@ -92,6 +91,19 @@ operatorDigits.forEach(button => {
     const operatorButtonContent = button.textContent
     //event listener to make click event feed function(operation) into display
     button.addEventListener('click', function() {
+        //check if operands and operator are set
+        if (firstOperand !== '' && secondOperand !== '' && currentOperator !== '') {
+            result = operate(firstOperand, secondOperand, functionalOperator)
+            refreshDisplay()
+        } else if(firstOperand !== '' && secondOperand !== '' && currentOperator === '') {
+            //set operator for display
+            currentOperator = operatorButtonContent
+            //set operator for functional variable
+            functionalOperator = button.dataset.operation
+            
+        }
+
+
         //set operator for display
         currentOperator = operatorButtonContent
         //set operator for functional variable
@@ -101,11 +113,3 @@ operatorDigits.forEach(button => {
     })
 })
 
-
-//step 5
-// add digits to first operand
-//when operator button is clicked, previous operand is fed into a variable 
-//operator is fed into a variable
-//when another digit is clicked after operator has already been chosen, a third variable will be the target of the new digits
-//add function to operator digits
-//clicking on '=' call the desired function based on the operator variable
