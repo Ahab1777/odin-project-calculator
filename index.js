@@ -1,18 +1,18 @@
 
 function add(x, y) {
-    return x + y
+    return Number(x) + Number(y)
 }
 
 function subtract(x, y) {
-    return x - y
+    return Number(x) - Number(y)
 }
 
 function multiply(x, y) {
-    return x * y
+    return Number(x) * Number(y)
 }
 
 function divide(x, y) {
-    return x / y
+    return Number(x) / Number(y)
 }
 
 //variables for each digits and buttons
@@ -22,16 +22,42 @@ const display = document.querySelector('.display')
 //operator variable for function call
 let functionalOperator = '';    
 
-//function to be called when a new digit is clicked
-const refreshDisplay = () => {
-    if( result === '') {
-        display.textContent = `${firstOperand} ${currentOperator} ${secondOperand}`
-    } else {
-        display.textContent = result
-    }
+//variables for test - delete later
+const firstOperandDisplay = document.querySelector('.first-operand')
+const operatorDisplay = document.querySelector('.operator')
+const secondOperandDisplay = document.querySelector('.second-operand')
+const resultDisplay = document.querySelector('.result')
+const functionalOperatorDisplay = document.querySelector('.functional-operator')
+
+//test function - delete later
+const testDisplay = function(result) {
+    if(result === ""){
+        return "blank"
+    } else return result
 }
 
-//clear/clr button functionality
+
+//function to be called when a new digit is clicked
+const refreshDisplay = () => {
+
+    //refresh for test display - delete later
+    firstOperandDisplay.textContent = testDisplay(firstOperand)
+    operatorDisplay.textContent = testDisplay(currentOperator)
+    functionalOperatorDisplay.textContent = testDisplay(functionalOperator)
+    secondOperandDisplay.textContent = testDisplay(secondOperand)
+    resultDisplay.textContent = testDisplay(result)
+
+    //actual refreshDisplay function
+    // if( result === '') {
+        display.textContent = `${firstOperand} ${currentOperator} ${secondOperand}`
+    // } else if(secondOperand = ''){
+    //     display.textContent = `${firstOperand} ${currentOperator}`
+    // } else {
+    //     display.textContent = result
+    // }
+}
+
+//clear button functionality
 const clrButton = document.querySelector('.clear-btn')
 clrButton.addEventListener('click', function() {
     firstOperand = ''
@@ -42,7 +68,7 @@ clrButton.addEventListener('click', function() {
     refreshDisplay()
 })
 
-//equal sign functionality
+//equal sign functionality =
 function operate(operandX, operandY, operator) {
     if(operator === 'add'){
         return add(operandX, operandY)
@@ -55,20 +81,24 @@ function operate(operandX, operandY, operator) {
     }
 }
 
+//equal button functionalities =
 const equalButton = document.querySelector('.equal-btn')
 equalButton.addEventListener('click', function() {
-    console.log(firstOperand, secondOperand, functionalOperator)
-    if(secondOperand === ''){
+    if(secondOperand === '' || currentOperator === ''){
         return
     } else {
         result = operate(firstOperand, secondOperand, functionalOperator)
+        firstOperand = result
+        secondOperand = ''
+        currentOperator = ''
+        functionalOperator = ''
         refreshDisplay()
         return
     }
 })
 
 
-//feeds digits into variable and display
+//feeds digits into variable and display 123...
 numericDigits.forEach(button => {
     const buttonContent = button.textContent
     button.addEventListener('click', function() {
@@ -92,15 +122,27 @@ operatorDigits.forEach(button => {
     //event listener to make click event feed function(operation) into display
     button.addEventListener('click', function() {
         //check if operands and operator are set
-        if (firstOperand !== '' && secondOperand !== '' && currentOperator !== '') {
+        if(firstOperand === ''){
+            return
+        } else if (firstOperand !== '' && secondOperand !== '' && currentOperator !== '') {
             result = operate(firstOperand, secondOperand, functionalOperator)
+            firstOperand = result
+            currentOperator = operatorButtonContent
+            functionalOperator = button.dataset.operation
+            secondOperand = ''
             refreshDisplay()
-        } else if(firstOperand !== '' && secondOperand !== '' && currentOperator === '') {
+        } else if(firstOperand !== '' && secondOperand === '' && currentOperator !== '') {
             //set operator for display
             currentOperator = operatorButtonContent
             //set operator for functional variable
             functionalOperator = button.dataset.operation
-            
+            refreshDisplay()
+        } else if(firstOperand !== '' && secondOperand === '' && currentOperator === ''){
+            //set operator for display
+            currentOperator = operatorButtonContent
+            //set operator for functional variable
+            functionalOperator = button.dataset.operation
+            refreshDisplay()
         }
 
 
