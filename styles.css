@@ -11,14 +11,15 @@ body {
 }
 
 .calculator-container {
-    height: 400px;
-    width: 400px;
+    height: 500px;
+    width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px solid black;
 }
+
 
 .display {
     width: 300px;

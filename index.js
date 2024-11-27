@@ -58,15 +58,18 @@ const refreshDisplay = () => {
 }
 
 //clear button functionality
-const clrButton = document.querySelector('.clear-btn')
-clrButton.addEventListener('click', function() {
+
+const clearAll = function() {
     firstOperand = ''
     currentOperator = ''
     secondOperand = ''
     functionalOperator = ''
     result = ''
     refreshDisplay()
-})
+}
+
+const clrButton = document.querySelector('.clear-btn')
+clrButton.addEventListener('click', clearAll)
 
 //equal sign functionality =
 function operate(operandX, operandY, operator) {
@@ -84,11 +87,25 @@ function operate(operandX, operandY, operator) {
 //equal button functionalities =
 const equalButton = document.querySelector('.equal-btn')
 equalButton.addEventListener('click', function() {
-    if(secondOperand === '' || currentOperator === ''){
+    if(firstOperand === 'Hey, buddy! No divisions by zero, ok?'){
+        clearAll()
+        return
+    } else if(secondOperand === '' || currentOperator === ''){
         return
     } else {
         result = operate(firstOperand, secondOperand, functionalOperator)
-        firstOperand = result
+        if(result === Infinity){
+            result = 'Hey, buddy! No divisions by zero, ok?'
+            firstOperand = result
+            secondOperand = ''
+            currentOperator = ''
+            functionalOperator = ''
+            refreshDisplay()
+            return
+        }
+
+        //rounds number to 2 decimal places
+        firstOperand = Math.round(Number(result) * 100) / 100
         secondOperand = ''
         currentOperator = ''
         functionalOperator = ''
@@ -103,7 +120,10 @@ numericDigits.forEach(button => {
     const buttonContent = button.textContent
     button.addEventListener('click', function() {
         //if operator is not set yet, add digit to firstOperand
-        if(currentOperator === ''){
+        if(firstOperand === 'Hey, buddy! No divisions by zero, ok?'){
+            clearAll()
+            return
+        } else if(currentOperator === ''){
             firstOperand += buttonContent
             refreshDisplay()
         } else if(currentOperator !== '') {
@@ -121,11 +141,19 @@ operatorDigits.forEach(button => {
     const operatorButtonContent = button.textContent
     //event listener to make click event feed function(operation) into display
     button.addEventListener('click', function() {
-        //check if operands and operator are set
+        //check if operands and operator are set and valid
         if(firstOperand === ''){
+            return
+        } else if(firstOperand === NaN || firstOperand === 'Hey, buddy! No divisions by zero, ok?'){
+            clearAll()
             return
         } else if (firstOperand !== '' && secondOperand !== '' && currentOperator !== '') {
             result = operate(firstOperand, secondOperand, functionalOperator)
+            //if result is infinity (likely due to a division by zero) provide snarky remark
+            if (result === Infinity){
+                result = 'Hey, buddy! No divisions by zero, ok?'
+            }
+
             firstOperand = result
             currentOperator = operatorButtonContent
             functionalOperator = button.dataset.operation
