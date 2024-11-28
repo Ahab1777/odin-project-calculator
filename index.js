@@ -40,12 +40,12 @@ const testDisplay = function(result) {
 //function to be called when a new digit is clicked
 const refreshDisplay = () => {
 
-    //refresh for test display - delete later
-    firstOperandDisplay.textContent = testDisplay(firstOperand)
-    operatorDisplay.textContent = testDisplay(currentOperator)
-    functionalOperatorDisplay.textContent = testDisplay(functionalOperator)
-    secondOperandDisplay.textContent = testDisplay(secondOperand)
-    resultDisplay.textContent = testDisplay(result)
+    // //refresh for test display - delete later
+    // firstOperandDisplay.textContent = testDisplay(firstOperand)
+    // operatorDisplay.textContent = testDisplay(currentOperator)
+    // functionalOperatorDisplay.textContent = testDisplay(functionalOperator)
+    // secondOperandDisplay.textContent = testDisplay(secondOperand)
+    // resultDisplay.textContent = testDisplay(result)
 
     //actual refreshDisplay function
     // if( result === '') {
